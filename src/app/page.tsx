@@ -1,79 +1,144 @@
 import Image from "next/image";
-import { Logo } from "@/components/logo";
+import Link from "next/link";
+import { CalendarCheck, BellRing, Repeat } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { Card } from "@/components/ui/primitives";
+
+const features = [
+  {
+    icon: CalendarCheck,
+    title: "Prenota in pochi tocchi",
+    body: "Calendario sempre aggiornato con i posti disponibili per ogni sessione.",
+  },
+  {
+    icon: BellRing,
+    title: "Resta informato",
+    body: "Comunicazioni dello staff sempre in evidenza, finché non le hai lette.",
+  },
+  {
+    icon: Repeat,
+    title: "Nessun posto sprecato",
+    body: "Lista d'attesa automatica: se si libera un posto, sei il primo a saperlo.",
+  },
+];
+
+const stats = [
+  { label: "fasce orarie", value: "Flessibili" },
+  { label: "per sessione", value: "Posti limitati" },
+  { label: "in palestra", value: "Staff dedicato" },
+];
 
 export default function HomePage() {
   return (
     <div className="flex min-h-full flex-col">
-      <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-5 py-5">
-        <Logo />
-        <div className="flex items-center gap-2">
-          <LinkButton href="/login" variant="ghost" size="sm">
-            Accedi
-          </LinkButton>
-          <LinkButton href="/registrati" variant="primary" size="sm">
-            Registrati
-          </LinkButton>
-        </div>
-      </header>
-
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="brand-arc" />
-        <div className="relative mx-auto grid max-w-5xl gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:py-24">
-          <div className="fade-in">
-            <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.14em] text-ocean">
-              Corso in palestra · Dott. Carlo Poggioli
-            </p>
-            <h1 className="font-display text-[38px] font-medium leading-[1.1] text-navy md:text-[48px]">
-              Il tuo percorso di longevità,{" "}
-              <em className="not-italic text-ocean">una sessione alla volta</em>.
-            </h1>
-            <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-muted">
-              Prenota le sessioni del corso tenuto dal Dott. Carlo Poggioli, scegli il giorno
-              e l&apos;orario più comodi, ricevi conferme e promemoria automatici.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <LinkButton href="/registrati" variant="primary">
-                Iscriviti al corso
-              </LinkButton>
-              <LinkButton href="/login" variant="secondary">
-                Ho già un account
-              </LinkButton>
-            </div>
-          </div>
-          <div className="flex justify-center md:justify-end">
+      <section className="relative bg-gradient-to-br from-navy via-ocean to-ocean-600 text-white">
+        <header className="mx-auto flex max-w-5xl items-center justify-between px-5 pt-6 sm:px-6 sm:pt-7">
+          <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/logo.png"
+              src="/logo-alpha.png"
               alt="Longevity"
-              width={280}
-              height={280}
-              className="drop-shadow-[0_18px_40px_rgba(28,111,176,0.18)]"
-              priority
+              width={28}
+              height={28}
+              className="brightness-0 invert"
             />
+            <span className="font-display text-[17px] font-semibold sm:text-[18px]">
+              Longevity
+            </span>
+          </Link>
+          <div className="flex items-center gap-1.5 text-[13px] sm:gap-2 sm:text-[13.5px]">
+            <Link href="/login" className="px-2.5 py-2 font-medium text-white/90 sm:px-3">
+              Accedi
+            </Link>
+            <Link
+              href="/registrati"
+              className="rounded-full bg-white px-3.5 py-2 font-medium text-navy sm:px-4"
+            >
+              Registrati
+            </Link>
           </div>
+        </header>
+
+        <div className="mx-auto max-w-5xl px-5 pb-24 pt-10 text-center sm:px-6 sm:pb-28 sm:pt-14">
+          <p className="mb-4 text-[11.5px] font-medium uppercase tracking-[0.1em] text-sky sm:mb-5 sm:text-[13px] sm:tracking-[0.16em]">
+            Corso in palestra · Dott. Carlo Poggioli
+          </p>
+          <h1 className="fade-in mx-auto max-w-2xl font-display text-[32px] font-medium leading-[1.12] sm:text-[42px] sm:leading-[1.05] md:text-[62px]">
+            Il tuo percorso di <em className="not-italic">longevità</em>, una sessione alla volta.
+          </h1>
+          <p className="mx-auto mt-5 max-w-md text-[14px] leading-relaxed text-white/80 sm:mt-6 sm:text-[15.5px]">
+            Prenota le sessioni del corso tenuto dal Dott. Carlo Poggioli, scegli il giorno
+            e l&apos;orario più comodi, ricevi conferme e promemoria automatici.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-2.5 sm:mt-8 sm:gap-3">
+            <LinkButton
+              href="/registrati"
+              className="!rounded-full !bg-white !text-navy !text-[14px] sm:!text-[15px]"
+            >
+              Iscriviti al corso
+            </LinkButton>
+            <LinkButton
+              href="/login"
+              variant="secondary"
+              className="!rounded-full !border-white/40 !bg-transparent !text-white !text-[14px] sm:!text-[15px]"
+            >
+              Ho già un account
+            </LinkButton>
+          </div>
+        </div>
+
+        <svg
+          className="block w-full text-background"
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          style={{ height: 56 }}
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M0,32 C240,80 480,0 720,24 C960,48 1200,88 1440,40 L1440,80 L0,80 Z"
+          />
+        </svg>
+      </section>
+
+      <section className="relative z-10 mx-auto -mt-12 w-full max-w-4xl px-5 sm:-mt-14 sm:px-6">
+        <div className="grid grid-cols-3 divide-x divide-border rounded-2xl border border-border bg-surface shadow-xl">
+          {stats.map((s) => (
+            <div key={s.label} className="p-2.5 text-center sm:p-6">
+              <p className="font-display text-[13px] leading-tight text-ocean sm:text-[22px]">
+                {s.value}
+              </p>
+              <p className="mt-0.5 text-[9.5px] leading-tight text-muted sm:mt-1 sm:text-[12.5px]">
+                {s.label}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="mx-auto grid w-full max-w-5xl gap-4 px-5 py-14 sm:grid-cols-3">
-        <Card>
-          <p className="font-display text-[16px] font-medium text-navy">Prenota in pochi tocchi</p>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
-            Calendario sempre aggiornato con i posti disponibili per ogni sessione.
-          </p>
-        </Card>
-        <Card>
-          <p className="font-display text-[16px] font-medium text-navy">Resta informato</p>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
-            Comunicazioni dello staff sempre in evidenza, finché non le hai lette.
-          </p>
-        </Card>
-        <Card>
-          <p className="font-display text-[16px] font-medium text-navy">Nessun posto sprecato</p>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
-            Lista d&apos;attesa automatica: se si libera un posto, sei il primo a saperlo.
-          </p>
-        </Card>
+      <section className="mx-auto grid w-full max-w-5xl gap-8 px-5 py-14 text-center sm:grid-cols-3 sm:px-6 sm:py-20">
+        {features.map((f) => (
+          <div key={f.title}>
+            <div className="mx-auto mb-3.5 flex h-14 w-14 items-center justify-center rounded-full bg-leaf-100 sm:mb-4 sm:h-16 sm:w-16">
+              <f.icon className="h-6 w-6 text-leaf sm:h-7 sm:w-7" strokeWidth={1.75} />
+            </div>
+            <p className="font-display text-[16px] font-medium sm:text-[17px]">{f.title}</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-muted sm:text-[13.5px]">
+              {f.body}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      <section className="bg-leaf-100 px-5 py-12 text-center sm:py-16">
+        <p className="mb-4 font-display text-[21px] font-medium sm:mb-5 sm:text-[26px]">
+          Pronto a iniziare il tuo percorso?
+        </p>
+        <LinkButton
+          href="/registrati"
+          className="!rounded-full !text-[14px] sm:!text-[15px]"
+        >
+          Iscriviti ora
+        </LinkButton>
       </section>
 
       <footer className="mt-auto border-t border-border px-5 py-6 text-center text-[12.5px] text-muted">
