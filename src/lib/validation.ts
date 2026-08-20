@@ -14,7 +14,9 @@ export const registerSchema = z.object({
 
 export const createSlotSchema = z
   .object({
-    date: z.string().min(1, "Seleziona una data"),
+    date: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
     startTime: z.string().min(1, "Seleziona un orario di inizio"),
     endTime: z.string().min(1, "Seleziona un orario di fine"),
     capacity: z.coerce.number().int().min(1, "La capienza deve essere almeno 1"),
