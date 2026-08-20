@@ -33,6 +33,7 @@ export const sendMessageSchema = z.object({
   audience: z.enum(["all", "single"]),
   userId: z.string().uuid().optional(),
   notifyByEmail: z.boolean().default(false),
+  expiresAt: z.string().optional(),
 });
 
 export const feedbackSchema = z.object({

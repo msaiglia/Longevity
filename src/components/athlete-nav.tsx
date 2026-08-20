@@ -37,7 +37,10 @@ export async function AthleteNav() {
           )}
         </nav>
         <div className="flex items-center gap-3">
-          <Link href="/profilo" className="text-[13px] text-muted hover:text-ocean">
+          <Link
+            href="/profilo"
+            className="hidden text-[13px] text-muted hover:text-ocean md:inline"
+          >
             {session?.user.name}
           </Link>
           <form action={signOutAction}>
@@ -47,17 +50,6 @@ export async function AthleteNav() {
           </form>
         </div>
       </div>
-      <nav className="flex items-center gap-1 overflow-x-auto border-t border-border px-3 py-1.5 md:hidden">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="shrink-0 rounded-lg px-3 py-1.5 text-[13px] font-medium text-muted hover:bg-sky-100 hover:text-ocean-600"
-          >
-            {l.label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }

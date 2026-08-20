@@ -12,6 +12,7 @@ const priorityTone = { info: "ocean", important: "amber", urgent: "red" } as con
 const priorityLabel = { info: "Informativo", important: "Importante", urgent: "Urgente" } as const;
 
 const dateFmt = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+const dateOnlyFmt = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "short", year: "numeric" });
 
 export default async function ComunicazioniPage() {
   const user = await requireAthlete();
@@ -22,6 +23,7 @@ export default async function ComunicazioniPage() {
       title: messages.title,
       body: messages.body,
       priority: messages.priority,
+      expiresAt: messages.expiresAt,
       createdAt: messages.createdAt,
       readAt: messageRecipients.readAt,
     })
@@ -51,6 +53,9 @@ export default async function ComunicazioniPage() {
                   <Badge tone={priorityTone[m.priority]}>{priorityLabel[m.priority]}</Badge>
                   {!m.readAt && <Badge tone="neutral">Non letto</Badge>}
                   <span className="text-[12px] text-muted">{dateFmt.format(m.createdAt)}</span>
+                  {m.expiresAt && (
+                    <span className="text-[12px] text-muted">· Scadenza {dateOnlyFmt.format(m.expiresAt)}</span>
+                  )}
                 </div>
                 <p className="font-display text-[15px] font-medium text-ink">{m.title}</p>
                 <p className="mt-1 text-[13.5px] leading-relaxed text-muted">{m.body}</p>

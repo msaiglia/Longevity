@@ -23,13 +23,14 @@ export async function sendMessageAction(
     audience: formData.get("audience"),
     userId: formData.get("userId") || undefined,
     notifyByEmail: formData.get("notifyByEmail") === "on",
+    expiresAt: formData.get("expiresAt") || undefined,
   });
 
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Dati non validi." };
   }
 
-  const { title, body, priority, audience, userId, notifyByEmail } = parsed.data;
+  const { title, body, priority, audience, userId, notifyByEmail, expiresAt } = parsed.data;
 
   if (audience === "single" && !userId) {
     return { ok: false, error: "Seleziona un atleta destinatario." };
@@ -37,7 +38,14 @@ export async function sendMessageAction(
 
   const [message] = await db
     .insert(messages)
-    .values({ title, body, priority, sentBy: admin.id, audience })
+    .values({
+      title,
+      body,
+      priority,
+      sentBy: admin.id,
+      audience,
+      expiresAt: expiresAt ? new Date(expiresAt) : null,
+    })
     .returning();
 
   const recipients =

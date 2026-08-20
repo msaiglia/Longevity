@@ -106,6 +106,7 @@ export const messages = pgTable("messages", {
   priority: messagePriority("priority").notNull().default("info"),
   sentBy: uuid("sent_by").notNull().references(() => users.id),
   audience: text("audience").notNull().default("all"), // "all" | "single"
+  expiresAt: timestamp("expires_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

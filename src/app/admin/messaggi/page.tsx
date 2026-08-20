@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 const priorityTone = { info: "ocean", important: "amber", urgent: "red" } as const;
 const priorityLabel = { info: "Informativo", important: "Importante", urgent: "Urgente" } as const;
 const dateFmt = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+const dateOnlyFmt = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "short", year: "numeric" });
 
 export default async function AdminMessaggiPage() {
   await requireAdmin();
@@ -58,6 +59,9 @@ export default async function AdminMessaggiPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge tone={priorityTone[m.priority]}>{priorityLabel[m.priority]}</Badge>
                     <span className="text-[12px] text-muted">{dateFmt.format(m.createdAt)}</span>
+                    {m.expiresAt && (
+                      <Badge tone="neutral">Scade il {dateOnlyFmt.format(m.expiresAt)}</Badge>
+                    )}
                   </div>
                   <p className="mt-2 font-display text-[15px] font-medium text-ink">{m.title}</p>
                   <p className="mt-1 text-[13px] leading-relaxed text-muted">{m.body}</p>

@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { slots, bookings, waitlist } from "@/db/schema";
 import { and, eq, gte, inArray, count } from "drizzle-orm";
 import { requireAthlete } from "@/lib/guards";
-import { UnreadMessagesBanner } from "@/components/unread-messages-banner";
+import { CommunicationsSection } from "@/components/communications-section";
 import { Badge, Card } from "@/components/ui/primitives";
 import { formatSlotDate, formatSlotTime, isPast } from "@/lib/utils";
 import {
@@ -70,13 +70,22 @@ export default async function PrenotaPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-[24px] font-medium text-ink">Prenota una sessione</h1>
-        <p className="mt-1 text-[13.5px] text-muted">
+        <h1 className="font-display text-[24px] font-medium text-ink">
+          Ciao, {user.name?.split(" ")[0]} 👋
+        </h1>
+        <p className="mt-1 text-[13.5px] text-muted">Bentornato/a nella tua area Longevity.</p>
+      </div>
+
+      <CommunicationsSection userId={user.id} />
+
+      <div>
+        <h2 className="mb-1 font-display text-[18px] font-medium text-ink">
+          Prenota una sessione
+        </h2>
+        <p className="text-[13.5px] text-muted">
           Scegli data e orario tra le sessioni disponibili del corso.
         </p>
       </div>
-
-      <UnreadMessagesBanner userId={user.id} />
 
       {upcoming.length === 0 && (
         <Card className="text-center text-[13.5px] text-muted">

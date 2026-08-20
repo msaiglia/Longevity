@@ -52,6 +52,13 @@ export function SendMessageForm({
           </Select>
         </div>
       </div>
+      <div>
+        <Label htmlFor="expiresAt">Scadenza (facoltativa)</Label>
+        <Input id="expiresAt" name="expiresAt" type="date" />
+        <p className="mt-1 text-[12px] text-muted">
+          Dopo questa data il messaggio non comparirà più tra le comunicazioni in evidenza.
+        </p>
+      </div>
       {audience === "single" && (
         <div>
           <Label htmlFor="userId">Atleta</Label>
