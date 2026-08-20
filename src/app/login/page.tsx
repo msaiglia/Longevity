@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Card } from "@/components/ui/primitives";
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") ?? "/prenota";
+  const explicitNext = params.get("next");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,9 +29,8 @@ function LoginForm() {
       redirect: false,
     });
 
-    setLoading(false);
-
     if (res?.error) {
+      setLoading(false);
       if (res.code === "account_pending") {
         setError("Il tuo account è in attesa di approvazione da parte dello staff.");
       } else if (res.code === "account_rejected") {
@@ -42,7 +41,13 @@ function LoginForm() {
       return;
     }
 
-    router.push(next);
+    // Un admin senza una destinazione esplicita (es. non stava tornando da una
+    // pagina protetta) va dritto al pannello staff invece che alla vista atleta.
+    const session = await getSession();
+    const destination =
+      explicitNext ?? (session?.user.role === "admin" ? "/admin" : "/prenota");
+
+    router.push(destination);
     router.refresh();
   }
 
