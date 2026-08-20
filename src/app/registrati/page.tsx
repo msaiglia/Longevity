@@ -19,7 +19,7 @@ export default function RegisterPage() {
           <Logo />
         </div>
         <Card className="w-full max-w-sm text-center">
-          <h1 className="font-display text-[20px] font-medium text-navy">
+          <h1 className="font-display text-[20px] font-medium text-ink">
             Richiesta inviata
           </h1>
           <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
@@ -40,7 +40,7 @@ export default function RegisterPage() {
         <Logo />
       </div>
       <Card className="w-full max-w-sm">
-        <h1 className="font-display text-[20px] font-medium text-navy">Registrati al corso</h1>
+        <h1 className="font-display text-[20px] font-medium text-ink">Registrati al corso</h1>
         <p className="mb-6 mt-1 text-[13.5px] text-muted">
           Dopo la registrazione lo staff verificherà il tuo account.
         </p>

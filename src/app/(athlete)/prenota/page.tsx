@@ -70,7 +70,7 @@ export default async function PrenotaPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-[24px] font-medium text-navy">Prenota una sessione</h1>
+        <h1 className="font-display text-[24px] font-medium text-ink">Prenota una sessione</h1>
         <p className="mt-1 text-[13.5px] text-muted">
           Scegli data e orario tra le sessioni disponibili del corso.
         </p>
@@ -99,7 +99,7 @@ export default async function PrenotaPage() {
               return (
                 <Card key={s.id} className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-display text-[15.5px] font-medium text-navy">
+                    <p className="font-display text-[15.5px] font-medium text-ink">
                       {formatSlotTime(s.startsAt, s.endsAt)}
                     </p>
                     <div className="mt-1.5 flex flex-wrap items-center gap-1.5">

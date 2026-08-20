@@ -76,7 +76,7 @@ export default function LoginPage() {
         <Logo />
       </div>
       <Card className="w-full max-w-sm">
-        <h1 className="font-display text-[20px] font-medium text-navy">Bentornato/a</h1>
+        <h1 className="font-display text-[20px] font-medium text-ink">Bentornato/a</h1>
         <p className="mb-6 mt-1 text-[13.5px] text-muted">
           Accedi per prenotare le tue sessioni.
         </p>

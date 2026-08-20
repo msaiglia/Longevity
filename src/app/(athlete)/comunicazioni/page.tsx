@@ -33,7 +33,7 @@ export default async function ComunicazioniPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-[24px] font-medium text-navy">Comunicazioni</h1>
+        <h1 className="font-display text-[24px] font-medium text-ink">Comunicazioni</h1>
         <p className="mt-1 text-[13.5px] text-muted">Storico dei messaggi ricevuti dallo staff.</p>
       </div>
 
@@ -52,7 +52,7 @@ export default async function ComunicazioniPage() {
                   {!m.readAt && <Badge tone="neutral">Non letto</Badge>}
                   <span className="text-[12px] text-muted">{dateFmt.format(m.createdAt)}</span>
                 </div>
-                <p className="font-display text-[15px] font-medium text-navy">{m.title}</p>
+                <p className="font-display text-[15px] font-medium text-ink">{m.title}</p>
                 <p className="mt-1 text-[13.5px] leading-relaxed text-muted">{m.body}</p>
               </div>
               {!m.readAt && (

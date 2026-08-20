@@ -52,7 +52,7 @@ export default async function LeMiePrenotazioniPage() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="font-display text-[24px] font-medium text-navy">Le mie prenotazioni</h1>
+        <h1 className="font-display text-[24px] font-medium text-ink">Le mie prenotazioni</h1>
         <p className="mt-1 text-[13.5px] text-muted">
           Il tuo percorso: <span className="font-medium text-ocean">{attendedCount}</span>{" "}
           {attendedCount === 1 ? "sessione completata" : "sessioni completate"}.
@@ -71,7 +71,7 @@ export default async function LeMiePrenotazioniPage() {
               return (
                 <Card key={w.id} className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-[14px] font-medium text-navy">
+                    <p className="text-[14px] font-medium text-ink">
                       {formatDateTimeLabel(s.startsAt, s.endsAt)}
                     </p>
                     {w.status === "offered" ? (
@@ -101,7 +101,7 @@ export default async function LeMiePrenotazioniPage() {
               return (
                 <Card key={b.id} className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-[14px] font-medium text-navy">
+                    <p className="text-[14px] font-medium text-ink">
                       {formatDateTimeLabel(s.startsAt, s.endsAt)}
                     </p>
                     <a
@@ -132,7 +132,7 @@ export default async function LeMiePrenotazioniPage() {
               return (
                 <Card key={b.id} className="flex flex-col gap-2.5">
                   <div className="flex items-center justify-between gap-4">
-                    <p className="text-[14px] font-medium text-navy">
+                    <p className="text-[14px] font-medium text-ink">
                       {formatDateTimeLabel(s.startsAt, s.endsAt)}
                     </p>
                     <Badge tone={b.status === "attended" ? "leaf" : b.status === "no_show" ? "red" : "neutral"}>

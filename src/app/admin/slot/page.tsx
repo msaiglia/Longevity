@@ -48,10 +48,10 @@ export default async function AdminSlotPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="font-display text-[24px] font-medium text-navy">Sessioni</h1>
+      <h1 className="font-display text-[24px] font-medium text-ink">Sessioni</h1>
 
       <Card>
-        <h2 className="mb-4 font-display text-[16px] font-medium text-navy">Nuova sessione</h2>
+        <h2 className="mb-4 font-display text-[16px] font-medium text-ink">Nuova sessione</h2>
         <CreateSlotForm />
       </Card>
 
@@ -74,7 +74,7 @@ export default async function AdminSlotPage() {
                 <details key={s.id} className="group rounded-xl border border-border bg-surface">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4">
                     <div>
-                      <p className="text-[14px] font-medium text-navy">
+                      <p className="text-[14px] font-medium text-ink">
                         {formatDateTimeLabel(s.startsAt, s.endsAt)}
                       </p>
                       {s.notes && <p className="mt-0.5 text-[12.5px] text-muted">{s.notes}</p>}
@@ -98,7 +98,7 @@ export default async function AdminSlotPage() {
                           if (!u) return null;
                           return (
                             <div key={b.id} className="flex items-center justify-between gap-3">
-                              <span className="text-[13.5px] text-navy">
+                              <span className="text-[13.5px] text-ink">
                                 {u.firstName} {u.lastName}
                               </span>
                               <AttendanceToggle bookingId={b.id} status={b.status} />

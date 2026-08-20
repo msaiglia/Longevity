@@ -65,7 +65,7 @@ export function SendMessageForm({
           </Select>
         </div>
       )}
-      <label className="flex items-center gap-2 text-[13px] text-navy">
+      <label className="flex items-center gap-2 text-[13px] text-ink">
         <input type="checkbox" name="notifyByEmail" className="h-4 w-4 accent-ocean" />
         Invia anche una notifica email
       </label>

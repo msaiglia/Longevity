@@ -19,7 +19,7 @@ export function NotificationPrefsForm({
       className="space-y-3"
     >
       <label className="flex items-center justify-between gap-4 rounded-lg border border-border px-4 py-3">
-        <span className="text-[13.5px] text-navy">Email per conferme e promemoria prenotazioni</span>
+        <span className="text-[13.5px] text-ink">Email per conferme e promemoria prenotazioni</span>
         <input
           type="checkbox"
           name="notifyEmailBookings"
@@ -28,7 +28,7 @@ export function NotificationPrefsForm({
         />
       </label>
       <label className="flex items-center justify-between gap-4 rounded-lg border border-border px-4 py-3">
-        <span className="text-[13.5px] text-navy">Email per nuove comunicazioni dello staff</span>
+        <span className="text-[13.5px] text-ink">Email per nuove comunicazioni dello staff</span>
         <input
           type="checkbox"
           name="notifyEmailMessages"

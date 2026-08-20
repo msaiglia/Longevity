@@ -44,12 +44,12 @@ export async function UnreadMessagesBanner({ userId }: { userId: string }) {
         >
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <span className="text-[11px] font-medium uppercase tracking-wide text-navy/70">
+              <span className="text-[11px] font-medium uppercase tracking-wide text-ink/70">
                 {priorityLabel[m.priority]}
               </span>
             </div>
-            <p className="font-display text-[15px] font-medium text-navy">{m.title}</p>
-            <p className="mt-1 text-[13.5px] leading-relaxed text-navy/90">{m.body}</p>
+            <p className="font-display text-[15px] font-medium text-ink">{m.title}</p>
+            <p className="mt-1 text-[13.5px] leading-relaxed text-ink/90">{m.body}</p>
           </div>
           <div className="shrink-0">
             <MarkReadButton messageId={m.id} />

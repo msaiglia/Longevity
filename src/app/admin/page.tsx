@@ -64,7 +64,7 @@ export default async function AdminOverviewPage() {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-[24px] font-medium text-navy">Panoramica</h1>
+        <h1 className="font-display text-[24px] font-medium text-ink">Panoramica</h1>
         <LinkButton href="/admin/slot" size="sm">
           Crea sessione
         </LinkButton>
@@ -73,7 +73,7 @@ export default async function AdminOverviewPage() {
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
           <p className="text-[12.5px] text-muted">Iscrizioni in attesa</p>
-          <p className="mt-1 font-display text-[26px] font-medium text-navy">{pendingCount}</p>
+          <p className="mt-1 font-display text-[26px] font-medium text-ink">{pendingCount}</p>
           {pendingCount > 0 && (
             <LinkButton href="/admin/utenti" size="sm" variant="ghost" className="mt-2 !px-0">
               Rivedi ora →
@@ -82,11 +82,11 @@ export default async function AdminOverviewPage() {
         </Card>
         <Card>
           <p className="text-[12.5px] text-muted">Atleti attivi</p>
-          <p className="mt-1 font-display text-[26px] font-medium text-navy">{approvedCount}</p>
+          <p className="mt-1 font-display text-[26px] font-medium text-ink">{approvedCount}</p>
         </Card>
         <Card>
           <p className="text-[12.5px] text-muted">Presenze totali</p>
-          <p className="mt-1 font-display text-[26px] font-medium text-navy">{totalAttended}</p>
+          <p className="mt-1 font-display text-[26px] font-medium text-ink">{totalAttended}</p>
           <p className="mt-0.5 text-[12px] text-muted">{totalNoShow} assenze registrate</p>
         </Card>
       </div>
@@ -103,7 +103,7 @@ export default async function AdminOverviewPage() {
               const taken = countBySlot.get(s.id) ?? 0;
               return (
                 <Card key={s.id} className="flex items-center justify-between">
-                  <p className="text-[13.5px] text-navy">
+                  <p className="text-[13.5px] text-ink">
                     {formatDateTimeLabel(s.startsAt, s.endsAt)}
                   </p>
                   <Badge tone={taken >= s.capacity ? "amber" : "leaf"}>
@@ -127,7 +127,7 @@ export default async function AdminOverviewPage() {
               if (!u) return null;
               return (
                 <div key={t.userId} className="flex items-center justify-between px-5 py-3">
-                  <span className="text-[13.5px] text-navy">
+                  <span className="text-[13.5px] text-ink">
                     {u.firstName} {u.lastName}
                   </span>
                   <span className="text-[12.5px] text-muted">{t.n} presenze</span>

@@ -35,10 +35,10 @@ export default async function AdminMessaggiPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="font-display text-[24px] font-medium text-navy">Comunicazioni</h1>
+      <h1 className="font-display text-[24px] font-medium text-ink">Comunicazioni</h1>
 
       <Card>
-        <h2 className="mb-4 font-display text-[16px] font-medium text-navy">Nuovo messaggio</h2>
+        <h2 className="mb-4 font-display text-[16px] font-medium text-ink">Nuovo messaggio</h2>
         <SendMessageForm athletes={athletes} />
       </Card>
 
@@ -59,7 +59,7 @@ export default async function AdminMessaggiPage() {
                     <Badge tone={priorityTone[m.priority]}>{priorityLabel[m.priority]}</Badge>
                     <span className="text-[12px] text-muted">{dateFmt.format(m.createdAt)}</span>
                   </div>
-                  <p className="mt-2 font-display text-[15px] font-medium text-navy">{m.title}</p>
+                  <p className="mt-2 font-display text-[15px] font-medium text-ink">{m.title}</p>
                   <p className="mt-1 text-[13px] leading-relaxed text-muted">{m.body}</p>
                   <p className="mt-2 text-[12.5px] font-medium text-ocean">
                     Letto da {read} su {total}

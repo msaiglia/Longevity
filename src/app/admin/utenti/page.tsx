@@ -28,7 +28,7 @@ export default async function AdminUtentiPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="font-display text-[24px] font-medium text-navy">Iscrizioni</h1>
+      <h1 className="font-display text-[24px] font-medium text-ink">Iscrizioni</h1>
 
       <div>
         <h2 className="mb-3 text-[13px] font-medium uppercase tracking-wide text-muted">
@@ -41,7 +41,7 @@ export default async function AdminUtentiPage() {
             {pending.map((u) => (
               <Card key={u.id} className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-[14px] font-medium text-navy">
+                  <p className="text-[14px] font-medium text-ink">
                     {u.firstName} {u.lastName}
                   </p>
                   <p className="text-[12.5px] text-muted">{u.email} · {u.phone}</p>
@@ -61,7 +61,7 @@ export default async function AdminUtentiPage() {
           {others.map((u) => (
             <div key={u.id} className="flex items-center justify-between px-5 py-3">
               <div>
-                <p className="text-[13.5px] text-navy">{u.firstName} {u.lastName}</p>
+                <p className="text-[13.5px] text-ink">{u.firstName} {u.lastName}</p>
                 <p className="text-[12px] text-muted">{u.email}</p>
               </div>
               <Badge tone={statusTone[u.status]}>{statusLabel[u.status]}</Badge>

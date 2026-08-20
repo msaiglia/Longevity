@@ -14,11 +14,11 @@ export default async function ProfiloPage() {
   return (
     <div className="max-w-md space-y-6">
       <div>
-        <h1 className="font-display text-[24px] font-medium text-navy">Il mio profilo</h1>
+        <h1 className="font-display text-[24px] font-medium text-ink">Il mio profilo</h1>
       </div>
 
       <Card>
-        <p className="text-[14px] font-medium text-navy">
+        <p className="text-[14px] font-medium text-ink">
           {user.firstName} {user.lastName}
         </p>
         <p className="mt-0.5 text-[13px] text-muted">{user.email}</p>
