@@ -101,17 +101,20 @@ export default function HomePage() {
       </section>
 
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-4xl px-5 sm:-mt-14 sm:px-6">
-        <div className="grid grid-cols-3 divide-x divide-border rounded-2xl border border-border bg-surface shadow-xl">
-          {stats.map((s) => (
-            <div key={s.label} className="p-2.5 text-center sm:p-6">
-              <p className="font-display text-[13px] leading-tight text-ocean sm:text-[22px]">
-                {s.value}
-              </p>
-              <p className="mt-0.5 text-[9.5px] leading-tight text-muted sm:mt-1 sm:text-[12.5px]">
-                {s.label}
-              </p>
-            </div>
-          ))}
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-navy shadow-xl">
+          <div className="h-[3px] bg-gradient-to-r from-sky to-leaf" />
+          <div className="grid grid-cols-3 divide-x divide-white/10">
+            {stats.map((s) => (
+              <div key={s.label} className="p-2.5 text-center sm:p-6">
+                <p className="font-display text-[13px] leading-tight text-white sm:text-[22px]">
+                  {s.value}
+                </p>
+                <p className="mt-0.5 text-[9.5px] leading-tight text-sky sm:mt-1 sm:text-[12.5px]">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
