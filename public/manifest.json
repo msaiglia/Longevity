@@ -1,0 +1,12 @@
+{
+  "name": "Longevity",
+  "short_name": "Longevity",
+  "description": "Prenotazioni corso Longevity — Dott. Carlo Poggioli",
+  "start_url": "/prenota",
+  "display": "standalone",
+  "background_color": "#f5f8fa",
+  "theme_color": "#0b2e4e",
+  "icons": [
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand — derivata dal logo Longevity (arco blu-azzurro, foglia verde-acqua) */
+  --navy: #0b2e4e;
+  --navy-800: #123f68;
+  --ocean: #1c6fb0;
+  --ocean-600: #185f99;
+  --sky: #6fc6e0;
+  --sky-100: #e6f4f9;
+  --leaf: #2f9e82;
+  --leaf-100: #e3f5ef;
+  --amber: #b8791a;
+  --amber-100: #fbf1de;
+  --red: #b3392f;
+  --red-100: #fbeae8;
+
+  --background: #f5f8fa;
+  --surface: #ffffff;
+  --ink: #0f1f2e;
+  --muted: #5c7080;
+  --border: #dfe7ec;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-navy: var(--navy);
+  --color-navy-800: var(--navy-800);
+  --color-ocean: var(--ocean);
+  --color-ocean-600: var(--ocean-600);
+  --color-sky: var(--sky);
+  --color-sky-100: var(--sky-100);
+  --color-leaf: var(--leaf);
+  --color-leaf-100: var(--leaf-100);
+  --color-amber: var(--amber);
+  --color-amber-100: var(--amber-100);
+  --color-red: var(--red);
+  --color-red-100: var(--red-100);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #081826;
+    --surface: #0f2438;
+    --ink: #eaf1f6;
+    --muted: #9fb4c2;
+    --border: #1b3a52;
+    --sky-100: #123048;
+    --leaf-100: #10352c;
+    --amber-100: #2e2410;
+    --red-100: #331615;
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* Motivo ad arco ripreso dal logo — usato come firma visiva discreta */
+.brand-arc {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.brand-arc::before {
+  content: "";
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--ocean) 25%, transparent);
+  top: -420px;
+  right: -420px;
+}
+
+.brand-arc::after {
+  content: "";
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--sky) 35%, transparent);
+  top: -260px;
+  right: -260px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 0.5s ease-out both;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
