@@ -4,6 +4,8 @@ import { CalendarCheck, BellRing, Repeat } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { Card } from "@/components/ui/primitives";
 
+export const dynamic = "force-dynamic";
+
 const features = [
   {
     icon: CalendarCheck,
