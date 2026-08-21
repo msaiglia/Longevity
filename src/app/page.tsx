@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarCheck, BellRing, Repeat } from "lucide-react";
+import { CalendarCheck, BellRing, Repeat, Clock, Users, Stethoscope } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { Card } from "@/components/ui/primitives";
 
@@ -25,9 +25,9 @@ const features = [
 ];
 
 const stats = [
-  { label: "fasce orarie", value: "Flessibili" },
-  { label: "per sessione", value: "Posti limitati" },
-  { label: "in palestra", value: "Staff dedicato" },
+  { label: "fasce orarie", value: "Flessibili", icon: Clock },
+  { label: "per sessione", value: "Posti limitati", icon: Users },
+  { label: "in palestra", value: "Staff dedicato", icon: Stethoscope },
 ];
 
 export default function HomePage() {
@@ -107,11 +107,14 @@ export default function HomePage() {
           <div className="h-[3px] bg-gradient-to-r from-sky to-leaf" />
           <div className="grid grid-cols-3 divide-x divide-white/10">
             {stats.map((s) => (
-              <div key={s.label} className="p-2.5 text-center sm:p-6">
-                <p className="font-display text-[13px] leading-tight text-white sm:text-[22px]">
+              <div key={s.label} className="flex flex-col items-center gap-1.5 p-3 text-center sm:gap-2 sm:p-6">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 sm:h-10 sm:w-10">
+                  <s.icon className="h-[15px] w-[15px] text-sky sm:h-[19px] sm:w-[19px]" strokeWidth={1.8} />
+                </div>
+                <p className="font-display text-[13px] leading-tight text-white sm:text-[19px]">
                   {s.value}
                 </p>
-                <p className="mt-0.5 text-[9.5px] leading-tight text-sky sm:mt-1 sm:text-[12.5px]">
+                <p className="text-[9.5px] leading-tight text-sky/75 sm:text-[12px]">
                   {s.label}
                 </p>
               </div>
