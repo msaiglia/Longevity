@@ -1,7 +1,7 @@
 import { resend, EMAIL_FROM } from "@/lib/resend";
+import { getAppUrl } from "@/lib/app-url";
 
 function shell(title: string, bodyHtml: string, ctaLabel?: string, ctaUrl?: string) {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   return `
   <div style="background:#f5f8fa;padding:32px 16px;font-family:Helvetica,Arial,sans-serif;">
     <div style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #dfe7ec;">
@@ -33,7 +33,7 @@ export async function sendApprovalEmail(to: string, firstName: string) {
       `Benvenuto/a, ${firstName}`,
       `Il tuo account è stato approvato dallo staff. Da ora puoi accedere e prenotare le sessioni del corso disponibili.`,
       "Vai alle prenotazioni",
-      `${process.env.NEXT_PUBLIC_APP_URL}/prenota`,
+      `${getAppUrl()}/prenota`,
     ),
   });
 }
@@ -63,7 +63,7 @@ export async function sendBookingConfirmationEmail(
       `Prenotazione confermata`,
       `Ciao ${firstName}, la tua prenotazione per <strong>${dateLabel}</strong> è confermata. Ti aspettiamo!`,
       "Le mie prenotazioni",
-      `${process.env.NEXT_PUBLIC_APP_URL}/le-mie-prenotazioni`,
+      `${getAppUrl()}/le-mie-prenotazioni`,
     ),
   });
 }
@@ -81,7 +81,7 @@ export async function sendCancellationEmail(
       `Prenotazione cancellata`,
       `Ciao ${firstName}, la tua prenotazione per <strong>${dateLabel}</strong> è stata cancellata.`,
       "Prenota un'altra sessione",
-      `${process.env.NEXT_PUBLIC_APP_URL}/prenota`,
+      `${getAppUrl()}/prenota`,
     ),
   });
 }
@@ -100,7 +100,7 @@ export async function sendWaitlistPromotionEmail(
       `Si è liberato un posto`,
       `Ciao ${firstName}, si è liberato un posto per la sessione del <strong>${dateLabel}</strong>. Hai <strong>${expiresMinutes} minuti</strong> per confermare, poi il posto passa al prossimo in lista.`,
       "Conferma il posto",
-      `${process.env.NEXT_PUBLIC_APP_URL}/prenota`,
+      `${getAppUrl()}/prenota`,
     ),
   });
 }
@@ -131,7 +131,7 @@ export async function sendNewMessageEmail(
       title,
       `Ciao ${firstName}, hai ricevuto una nuova comunicazione dallo staff:<br/><br/><em>${preview}</em>`,
       "Leggi il messaggio",
-      `${process.env.NEXT_PUBLIC_APP_URL}/comunicazioni`,
+      `${getAppUrl()}/comunicazioni`,
     ),
   });
 }
