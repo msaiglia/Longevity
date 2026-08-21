@@ -78,7 +78,7 @@ export default async function PrenotaPage() {
         <p className="mt-1 text-[13.5px] text-muted">Bentornato/a nella tua area Longevity.</p>
       </div>
 
-      <CommunicationsSection userId={user.id} />
+      <CommunicationsSection userId={user.id} role={user.role} />
 
       <div>
         <h2 className="mb-1 font-display text-[18px] font-medium text-ink">
