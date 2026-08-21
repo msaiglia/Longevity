@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { messageRecipients, messages } from "@/db/schema";
 import { and, eq, or, isNull, gt, desc } from "drizzle-orm";
+import Link from "next/link";
 import { MarkReadButton } from "@/components/mark-read-button";
 import { Badge } from "@/components/ui/primitives";
 import { cn } from "@/lib/utils";
@@ -55,9 +56,14 @@ export async function CommunicationsSection({
 
   return (
     <section>
-      <div className="mb-3 flex items-center gap-2">
-        <Megaphone className="h-4 w-4 text-ocean" strokeWidth={2} />
-        <p className="font-display text-[16px] font-medium text-ink">Comunicazioni</p>
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Megaphone className="h-4 w-4 text-ocean" strokeWidth={2} />
+          <p className="font-display text-[16px] font-medium text-ink">Comunicazioni</p>
+        </div>
+        <Link href="/comunicazioni" className="text-[12.5px] font-medium text-ocean hover:underline">
+          Vedi tutte →
+        </Link>
       </div>
       <div className="space-y-3">
         {active.map((m) => (

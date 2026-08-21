@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ClipboardCheck, Megaphone, CircleUserRound } from "lucide-react";
+import { CalendarDays, ClipboardCheck, Trophy, CircleUserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
   { href: "/prenota", label: "Prenota", icon: CalendarDays },
   { href: "/le-mie-prenotazioni", label: "Prenotazioni", icon: ClipboardCheck },
-  { href: "/comunicazioni", label: "Comunicazioni", icon: Megaphone },
+  { href: "/traguardi", label: "Traguardi", icon: Trophy },
   { href: "/profilo", label: "Profilo", icon: CircleUserRound },
 ];
 
@@ -33,7 +33,7 @@ export function AthleteTabBar({ hasUnread = false }: { hasUnread?: boolean }) {
               )}
             >
               <t.icon className="h-6 w-6" strokeWidth={active ? 2.2 : 1.8} />
-              {t.href === "/comunicazioni" && hasUnread && (
+              {t.href === "/prenota" && hasUnread && (
                 <span className="absolute right-[28%] top-0 h-2 w-2 rounded-full bg-leaf" />
               )}
               {t.label}
