@@ -39,11 +39,11 @@ export default function HomePage() {
             <Image
               src="/logo-alpha.png"
               alt="Longevity"
-              width={28}
-              height={28}
+              width={32}
+              height={32}
               className="brightness-0 invert"
             />
-            <span className="font-display text-[17px] font-semibold sm:text-[18px]">
+            <span className="font-display text-[19px] font-semibold sm:text-[21px]">
               Longevity
             </span>
           </Link>
@@ -61,12 +61,12 @@ export default function HomePage() {
         </header>
 
         <div className="mx-auto max-w-5xl px-5 pb-24 pt-10 text-center sm:px-6 sm:pb-28 sm:pt-14">
-          <p className="mb-4 text-[11.5px] font-medium uppercase tracking-[0.1em] text-sky sm:mb-5 sm:text-[13px] sm:tracking-[0.16em]">
-            Corso in palestra · Dott. Carlo Poggioli
-          </p>
           <h1 className="fade-in mx-auto max-w-2xl font-display text-[32px] font-medium leading-[1.12] sm:text-[42px] sm:leading-[1.05] md:text-[62px]">
             Il tuo percorso di <em className="not-italic">longevità</em>, una sessione alla volta.
           </h1>
+          <p className="mt-4 text-[13px] font-medium uppercase tracking-[0.08em] text-sky sm:mt-5 sm:text-[14px]">
+            Dott. Carlo Poggioli
+          </p>
           <p className="mx-auto mt-5 max-w-md text-[14px] leading-relaxed text-white/80 sm:mt-6 sm:text-[15.5px]">
             Prenota le sessioni del corso tenuto dal Dott. Carlo Poggioli, scegli il giorno
             e l&apos;orario più comodi, ricevi conferme e promemoria automatici.
