@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { slots, bookings, waitlist } from "@/db/schema";
+import { slots, bookings, waitlist, users } from "@/db/schema";
 import { and, eq, gte, inArray, count } from "drizzle-orm";
 import { requireAthlete } from "@/lib/guards";
 import { CommunicationsSection } from "@/components/communications-section";
@@ -18,11 +18,20 @@ export default async function PrenotaPage() {
 
   const slotIds = upcoming.map((s) => s.id);
 
+  // Le prenotazioni fatte da un account admin (es. per provare "Vista atleta")
+  // non contano come posti realmente occupati dagli atleti.
   const bookingCounts = slotIds.length
     ? await db
         .select({ slotId: bookings.slotId, n: count() })
         .from(bookings)
-        .where(and(inArray(bookings.slotId, slotIds), eq(bookings.status, "confirmed")))
+        .innerJoin(users, eq(bookings.userId, users.id))
+        .where(
+          and(
+            inArray(bookings.slotId, slotIds),
+            eq(bookings.status, "confirmed"),
+            eq(users.role, "athlete"),
+          ),
+        )
         .groupBy(bookings.slotId)
     : [];
   const countBySlot = new Map(bookingCounts.map((b) => [b.slotId, b.n]));

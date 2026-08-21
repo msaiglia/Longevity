@@ -18,7 +18,10 @@ async function confirmedCount(slotId: string) {
   const [row] = await db
     .select({ n: count() })
     .from(bookings)
-    .where(and(eq(bookings.slotId, slotId), eq(bookings.status, "confirmed")));
+    .innerJoin(users, eq(bookings.userId, users.id))
+    .where(
+      and(eq(bookings.slotId, slotId), eq(bookings.status, "confirmed"), eq(users.role, "athlete")),
+    );
   return row?.n ?? 0;
 }
 

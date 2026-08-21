@@ -33,7 +33,8 @@ export default async function AdminOverviewPage() {
     ? await db
         .select({ slotId: bookings.slotId, n: count() })
         .from(bookings)
-        .where(and(eq(bookings.status, "confirmed")))
+        .innerJoin(users, eq(bookings.userId, users.id))
+        .where(and(eq(bookings.status, "confirmed"), eq(users.role, "athlete")))
         .groupBy(bookings.slotId)
     : [];
   const countBySlot = new Map(bookingCounts.map((b) => [b.slotId, b.n]));
@@ -41,17 +42,20 @@ export default async function AdminOverviewPage() {
   const [{ n: totalNoShow }] = await db
     .select({ n: count() })
     .from(bookings)
-    .where(eq(bookings.status, "no_show"));
+    .innerJoin(users, eq(bookings.userId, users.id))
+    .where(and(eq(bookings.status, "no_show"), eq(users.role, "athlete")));
 
   const [{ n: totalAttended }] = await db
     .select({ n: count() })
     .from(bookings)
-    .where(eq(bookings.status, "attended"));
+    .innerJoin(users, eq(bookings.userId, users.id))
+    .where(and(eq(bookings.status, "attended"), eq(users.role, "athlete")));
 
   const topAthletes = await db
     .select({ userId: bookings.userId, n: count() })
     .from(bookings)
-    .where(eq(bookings.status, "attended"))
+    .innerJoin(users, eq(bookings.userId, users.id))
+    .where(and(eq(bookings.status, "attended"), eq(users.role, "athlete")))
     .groupBy(bookings.userId)
     .orderBy(desc(count()))
     .limit(5);

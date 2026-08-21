@@ -20,20 +20,24 @@ export default async function AdminSlotPage() {
 
   const slotIds = upcoming.map((s) => s.id);
 
-  const allBookings = slotIds.length
+  const allBookingsRaw = slotIds.length
     ? await db.select().from(bookings).where(inArray(bookings.slotId, slotIds))
     : [];
+
+  const userIds = Array.from(new Set(allBookingsRaw.map((b) => b.userId)));
+  const bookedUsers = userIds.length
+    ? await db.select().from(users).where(inArray(users.id, userIds))
+    : [];
+  const userById = new Map(bookedUsers.map((u) => [u.id, u]));
+
+  // Le prenotazioni fatte da un account admin (es. per provare "Vista atleta")
+  // non sono atleti reali: non devono comparire nel roster né nei conteggi.
+  const allBookings = allBookingsRaw.filter((b) => userById.get(b.userId)?.role === "athlete");
   const bookingsBySlot = new Map<string, typeof allBookings>();
   for (const b of allBookings) {
     if (!bookingsBySlot.has(b.slotId)) bookingsBySlot.set(b.slotId, []);
     bookingsBySlot.get(b.slotId)!.push(b);
   }
-
-  const userIds = Array.from(new Set(allBookings.map((b) => b.userId)));
-  const bookedUsers = userIds.length
-    ? await db.select().from(users).where(inArray(users.id, userIds))
-    : [];
-  const userById = new Map(bookedUsers.map((u) => [u.id, u]));
 
   const allWaitlist = slotIds.length
     ? await db
