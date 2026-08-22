@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarCheck, BellRing, Repeat, Clock, Users, Stethoscope } from "lucide-react";
+import { CalendarCheck, BellRing, Repeat, Clock, Users, UserCheck } from "lucide-react";
 import { LinkButton } from "@/components/ui/button";
 import { Card } from "@/components/ui/primitives";
 
@@ -27,7 +27,7 @@ const features = [
 const stats = [
   { label: "fasce orarie", value: "Flessibili", icon: Clock },
   { label: "per sessione", value: "Posti limitati", icon: Users },
-  { label: "in palestra", value: "Staff dedicato", icon: Stethoscope },
+  { label: "in palestra", value: "Staff dedicato", icon: UserCheck },
 ];
 
 export default function HomePage() {
@@ -103,7 +103,7 @@ export default function HomePage() {
       </section>
 
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-4xl px-5 sm:-mt-14 sm:px-6">
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-navy shadow-xl">
+        <div className="overflow-hidden rounded-2xl border border-white/15 bg-navy shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_45px_rgba(111,198,224,0.35)]">
           <div className="h-[3px] bg-gradient-to-r from-sky to-leaf" />
           <div className="grid grid-cols-3 divide-x divide-white/10">
             {stats.map((s) => (
