@@ -31,7 +31,7 @@ const weekdayShort = new Intl.DateTimeFormat("it-IT", { weekday: "short" });
 const dayNum = new Intl.DateTimeFormat("it-IT", { day: "numeric" });
 const monthLabel = new Intl.DateTimeFormat("it-IT", { month: "long", year: "numeric" });
 
-function SlotCard({ s }: { s: PreparedSlot }) {
+function SlotCard({ s, isAdmin }: { s: PreparedSlot; isAdmin: boolean }) {
   return (
     <Card className="flex items-start justify-between gap-4">
       <div>
@@ -51,7 +51,9 @@ function SlotCard({ s }: { s: PreparedSlot }) {
       </div>
 
       <div className="shrink-0 text-right">
-        {s.bookingId ? (
+        {isAdmin ? (
+          <Badge tone="neutral">Vista staff</Badge>
+        ) : s.bookingId ? (
           <div className="space-y-1.5">
             <Badge tone="ocean">Prenotato</Badge>
             <div>
@@ -75,7 +77,7 @@ function SlotCard({ s }: { s: PreparedSlot }) {
   );
 }
 
-export function BookingCalendarView({ slots }: { slots: PreparedSlot[] }) {
+export function BookingCalendarView({ slots, isAdmin = false }: { slots: PreparedSlot[]; isAdmin?: boolean }) {
   const [view, setView] = useState<"list" | "calendar">("list");
   const [selectedDate, setSelectedDate] = useState<string>(() =>
     slots.length ? dateKey(slots[0].startsAt) : dateKey(new Date()),
@@ -163,7 +165,7 @@ export function BookingCalendarView({ slots }: { slots: PreparedSlot[] }) {
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 {daySlots.map((s) => (
-                  <SlotCard key={s.id} s={s} />
+                  <SlotCard key={s.id} s={s} isAdmin={isAdmin} />
                 ))}
               </div>
             </div>
@@ -286,7 +288,7 @@ export function BookingCalendarView({ slots }: { slots: PreparedSlot[] }) {
             ) : (
               <div className="grid gap-3 sm:grid-cols-2">
                 {daySlots.map((s) => (
-                  <SlotCard key={s.id} s={s} />
+                  <SlotCard key={s.id} s={s} isAdmin={isAdmin} />
                 ))}
               </div>
             )}

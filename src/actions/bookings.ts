@@ -28,6 +28,10 @@ async function confirmedCount(slotId: string) {
 export async function createBookingAction(slotId: string) {
   const user = await requireAthlete();
 
+  if (user.role === "admin") {
+    return { ok: false, error: "Gli account staff non possono prenotare sessioni." };
+  }
+
   const [slot] = await db.select().from(slots).where(eq(slots.id, slotId)).limit(1);
   if (!slot || slot.status !== "active") {
     return { ok: false, error: "Questa sessione non è più disponibile." };
@@ -75,6 +79,10 @@ export async function createBookingAction(slotId: string) {
 
 export async function joinWaitlistAction(slotId: string) {
   const user = await requireAthlete();
+
+  if (user.role === "admin") {
+    return { ok: false, error: "Gli account staff non possono prenotare sessioni." };
+  }
 
   const [slot] = await db.select().from(slots).where(eq(slots.id, slotId)).limit(1);
   if (!slot || slot.status !== "active") {

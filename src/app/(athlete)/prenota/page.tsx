@@ -98,7 +98,7 @@ export default async function PrenotaPage() {
         </p>
       </div>
 
-      <BookingCalendarView slots={preparedSlots} />
+      <BookingCalendarView slots={preparedSlots} isAdmin={user.role === "admin"} />
     </div>
   );
 }
