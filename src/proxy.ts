@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
-const protectedPrefixes = ["/prenota", "/le-mie-prenotazioni", "/comunicazioni", "/profilo", "/traguardi"];
+const protectedPrefixes = ["/prenota", "/le-mie-prenotazioni", "/comunicazioni", "/profilo", "/traguardi", "/magazine"];
 const adminPrefix = "/admin";
 
 export default auth((req) => {
@@ -23,5 +23,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/prenota/:path*", "/le-mie-prenotazioni/:path*", "/comunicazioni/:path*", "/profilo/:path*", "/traguardi/:path*", "/admin/:path*"],
+  matcher: ["/prenota/:path*", "/le-mie-prenotazioni/:path*", "/comunicazioni/:path*", "/profilo/:path*", "/traguardi/:path*", "/magazine/:path*", "/admin/:path*"],
 };

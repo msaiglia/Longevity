@@ -34,6 +34,14 @@ export const messagePriority = pgEnum("message_priority", [
   "important",
   "urgent",
 ]);
+export const articleCategory = pgEnum("article_category", [
+  "allenamento",
+  "nutrizione",
+  "prevenzione",
+  "recupero",
+  "novita",
+]);
+export const articleStatus = pgEnum("article_status", ["draft", "published"]);
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -119,6 +127,22 @@ export const messageRecipients = pgTable(
   },
   (t) => [primaryKey({ columns: [t.messageId, t.userId] })],
 );
+
+export const articles = pgTable("articles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  category: articleCategory("category").notNull(),
+  excerpt: text("excerpt").notNull(),
+  body: text("body").notNull(),
+  coverImageUrl: text("cover_image_url"),
+  status: articleStatus("status").notNull().default("draft"),
+  authorName: text("author_name").notNull().default("Dott. Carlo Poggioli"),
+  createdBy: uuid("created_by").notNull().references(() => users.id),
+  publishedAt: timestamp("published_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
 
 // Relations
 

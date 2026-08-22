@@ -3,6 +3,7 @@ import { slots, bookings, waitlist, users } from "@/db/schema";
 import { and, eq, gte, inArray, count } from "drizzle-orm";
 import { requireAthlete } from "@/lib/guards";
 import { CommunicationsSection } from "@/components/communications-section";
+import { MagazinePreview } from "@/components/magazine-preview";
 import { BookingCalendarView, PreparedSlot } from "@/components/booking-calendar-view";
 
 export const dynamic = "force-dynamic";
@@ -88,6 +89,8 @@ export default async function PrenotaPage() {
       </div>
 
       <CommunicationsSection userId={user.id} role={user.role} />
+
+      <MagazinePreview />
 
       <div>
         <h2 className="mb-1 font-display text-[18px] font-medium text-ink">

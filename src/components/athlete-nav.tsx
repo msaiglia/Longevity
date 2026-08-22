@@ -7,7 +7,8 @@ import { signOutAction } from "@/actions/session";
 const links = [
   { href: "/prenota", label: "Prenota" },
   { href: "/le-mie-prenotazioni", label: "Le mie prenotazioni" },
-  { href: "/comunicazioni", label: "Comunicazioni" },
+  { href: "/traguardi", label: "Traguardi" },
+  { href: "/magazine", label: "Magazine" },
 ];
 
 export async function AthleteNav() {

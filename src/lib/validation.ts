@@ -43,3 +43,11 @@ export const feedbackSchema = z.object({
   rating: z.coerce.number().int().min(1).max(5),
   comment: z.string().trim().max(500).optional(),
 });
+
+export const articleSchema = z.object({
+  title: z.string().trim().min(1, "Il titolo è obbligatorio").max(160),
+  category: z.enum(["allenamento", "nutrizione", "prevenzione", "recupero", "novita"]),
+  excerpt: z.string().trim().min(1, "L'estratto è obbligatorio").max(240),
+  body: z.string().trim().min(1, "Il testo è obbligatorio").max(20000),
+  authorName: z.string().trim().max(120).optional(),
+});

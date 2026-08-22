@@ -10,6 +10,7 @@ const links = [
   { href: "/admin/utenti", label: "Iscrizioni" },
   { href: "/admin/slot", label: "Sessioni" },
   { href: "/admin/messaggi", label: "Comunicazioni" },
+  { href: "/admin/magazine", label: "Magazine" },
 ];
 
 export function AdminNav() {

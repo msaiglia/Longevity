@@ -31,3 +31,26 @@ export function formatDateTimeLabel(start: Date, end: Date) {
 export function isPast(d: Date) {
   return d.getTime() < Date.now();
 }
+
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 80);
+}
+
+export const categoryLabel: Record<string, string> = {
+  allenamento: "Allenamento",
+  nutrizione: "Nutrizione",
+  prevenzione: "Prevenzione",
+  recupero: "Recupero",
+  novita: "Novità",
+};
+
+export function readingTimeMinutes(body: string): number {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}

@@ -105,6 +105,26 @@ export async function sendWaitlistPromotionEmail(
   });
 }
 
+export async function sendNewArticleEmail(
+  to: string,
+  firstName: string,
+  title: string,
+  excerpt: string,
+  slug: string,
+) {
+  return resend.emails.send({
+    from: EMAIL_FROM,
+    to,
+    subject: `Nuovo articolo: ${title}`,
+    html: shell(
+      title,
+      `Ciao ${firstName}, è stato pubblicato un nuovo articolo sul magazine Longevity:<br/><br/><em>${excerpt}</em>`,
+      "Leggi l'articolo",
+      `${getAppUrl()}/magazine/${slug}`,
+    ),
+  });
+}
+
 export async function sendSlotUpdatedEmail(
   to: string,
   firstName: string,
