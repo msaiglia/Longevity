@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { db } from "@/db";
 import { users, slots, bookings } from "@/db/schema";
 import { eq, and, gte, count, desc } from "drizzle-orm";
@@ -106,14 +107,16 @@ export default async function AdminOverviewPage() {
             {upcomingSlots.map((s) => {
               const taken = countBySlot.get(s.id) ?? 0;
               return (
-                <Card key={s.id} className="flex items-center justify-between">
-                  <p className="text-[13.5px] text-ink">
-                    {formatDateTimeLabel(s.startsAt, s.endsAt)}
-                  </p>
-                  <Badge tone={taken >= s.capacity ? "amber" : "leaf"}>
-                    {taken}/{s.capacity} prenotati
-                  </Badge>
-                </Card>
+                <Link key={s.id} href={`/admin/slot#slot-${s.id}`}>
+                  <Card className="flex items-center justify-between transition-shadow hover:shadow-md">
+                    <p className="text-[13.5px] text-ink">
+                      {formatDateTimeLabel(s.startsAt, s.endsAt)}
+                    </p>
+                    <Badge tone={taken >= s.capacity ? "amber" : "leaf"}>
+                      {taken}/{s.capacity} prenotati
+                    </Badge>
+                  </Card>
+                </Link>
               );
             })}
           </div>

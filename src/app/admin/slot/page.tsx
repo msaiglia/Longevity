@@ -6,6 +6,7 @@ import { Card, Badge } from "@/components/ui/primitives";
 import { formatSlotDate, formatSlotTime } from "@/lib/utils";
 import { CreateSlotForm } from "@/components/create-slot-form";
 import { AttendanceToggle, SessionActions } from "@/components/admin-slot-actions";
+import { ScrollToHashSlot } from "@/components/scroll-to-hash-slot";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +62,7 @@ export default async function AdminSlotPage() {
 
   return (
     <div className="space-y-8">
+      <ScrollToHashSlot />
       <h1 className="font-display text-[24px] font-medium text-ink">Sessioni</h1>
 
       <Card>
@@ -90,7 +92,7 @@ export default async function AdminSlotPage() {
                     const waitlistCount = waitlistCountBySlot.get(s.id) ?? 0;
 
                     return (
-                      <details key={s.id} className="group rounded-xl border border-border bg-surface">
+                      <details key={s.id} id={`slot-${s.id}`} className="group scroll-mt-20 rounded-xl border border-border bg-surface">
                         <summary className="flex cursor-pointer list-none items-start justify-between gap-3 px-4 py-3.5 sm:items-center sm:px-5">
                           <div className="min-w-0">
                             <p className="text-[13.5px] font-medium capitalize text-ink sm:text-[14px]">
