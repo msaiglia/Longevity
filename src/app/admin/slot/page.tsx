@@ -3,11 +3,13 @@ import { slots, bookings, users, waitlist } from "@/db/schema";
 import { and, eq, gte, inArray } from "drizzle-orm";
 import { requireAdmin } from "@/lib/guards";
 import { Card, Badge } from "@/components/ui/primitives";
-import { formatDateTimeLabel } from "@/lib/utils";
+import { formatSlotDate, formatSlotTime } from "@/lib/utils";
 import { CreateSlotForm } from "@/components/create-slot-form";
-import { AttendanceToggle, CancelSlotButton } from "@/components/admin-slot-actions";
+import { AttendanceToggle, SessionActions } from "@/components/admin-slot-actions";
 
 export const dynamic = "force-dynamic";
+
+const monthFmt = new Intl.DateTimeFormat("it-IT", { month: "long", year: "numeric" });
 
 export default async function AdminSlotPage() {
   await requireAdmin();
@@ -50,6 +52,13 @@ export default async function AdminSlotPage() {
     waitlistCountBySlot.set(w.slotId, (waitlistCountBySlot.get(w.slotId) ?? 0) + 1);
   }
 
+  const monthGroups = new Map<string, typeof upcoming>();
+  for (const s of upcoming) {
+    const key = monthFmt.format(s.startsAt);
+    if (!monthGroups.has(key)) monthGroups.set(key, []);
+    monthGroups.get(key)!.push(s);
+  }
+
   return (
     <div className="space-y-8">
       <h1 className="font-display text-[24px] font-medium text-ink">Sessioni</h1>
@@ -66,58 +75,78 @@ export default async function AdminSlotPage() {
         {upcoming.length === 0 ? (
           <p className="text-[13.5px] text-muted">Nessuna sessione futura. Creane una qui sopra.</p>
         ) : (
-          <div className="space-y-3">
-            {upcoming.map((s) => {
-              const slotBookings = (bookingsBySlot.get(s.id) ?? []).filter(
-                (b) => b.status !== "cancelled",
-              );
-              const confirmedCount = slotBookings.filter((b) => b.status !== "cancelled").length;
-              const waitlistCount = waitlistCountBySlot.get(s.id) ?? 0;
+          <div className="space-y-6">
+            {Array.from(monthGroups.entries()).map(([month, monthSlots]) => (
+              <div key={month}>
+                <p className="mb-2.5 font-display text-[13.5px] font-medium capitalize text-ocean">
+                  {month}
+                </p>
+                <div className="space-y-2.5">
+                  {monthSlots.map((s) => {
+                    const slotBookings = (bookingsBySlot.get(s.id) ?? []).filter(
+                      (b) => b.status !== "cancelled",
+                    );
+                    const confirmedCount = slotBookings.length;
+                    const waitlistCount = waitlistCountBySlot.get(s.id) ?? 0;
 
-              return (
-                <details key={s.id} className="group rounded-xl border border-border bg-surface">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4">
-                    <div>
-                      <p className="text-[14px] font-medium text-ink">
-                        {formatDateTimeLabel(s.startsAt, s.endsAt)}
-                      </p>
-                      {s.notes && <p className="mt-0.5 text-[12.5px] text-muted">{s.notes}</p>}
-                    </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                      <Badge tone={confirmedCount >= s.capacity ? "amber" : "leaf"}>
-                        {confirmedCount}/{s.capacity}
-                      </Badge>
-                      {waitlistCount > 0 && (
-                        <Badge tone="neutral">{waitlistCount} in attesa</Badge>
-                      )}
-                    </div>
-                  </summary>
-                  <div className="space-y-3 border-t border-border px-5 py-4">
-                    {slotBookings.length === 0 ? (
-                      <p className="text-[13px] text-muted">Nessuna prenotazione.</p>
-                    ) : (
-                      <div className="space-y-2">
-                        {slotBookings.map((b) => {
-                          const u = userById.get(b.userId);
-                          if (!u) return null;
-                          return (
-                            <div key={b.id} className="flex items-center justify-between gap-3">
-                              <span className="text-[13.5px] text-ink">
-                                {u.firstName} {u.lastName}
-                              </span>
-                              <AttendanceToggle bookingId={b.id} status={b.status} />
+                    return (
+                      <details key={s.id} className="group rounded-xl border border-border bg-surface">
+                        <summary className="flex cursor-pointer list-none items-start justify-between gap-3 px-4 py-3.5 sm:items-center sm:px-5">
+                          <div className="min-w-0">
+                            <p className="text-[13.5px] font-medium capitalize text-ink sm:text-[14px]">
+                              {formatSlotDate(s.startsAt)}
+                            </p>
+                            <p className="text-[12.5px] text-muted">{formatSlotTime(s.startsAt, s.endsAt)}</p>
+                            {s.notes && <p className="mt-0.5 truncate text-[12px] text-muted">{s.notes}</p>}
+                          </div>
+                          <div className="flex shrink-0 flex-col items-end gap-1.5">
+                            <Badge tone={confirmedCount >= s.capacity ? "amber" : "leaf"}>
+                              {confirmedCount}/{s.capacity}
+                            </Badge>
+                            {waitlistCount > 0 && (
+                              <Badge tone="neutral">{waitlistCount} in attesa</Badge>
+                            )}
+                          </div>
+                        </summary>
+                        <div className="space-y-3 border-t border-border px-4 py-3.5 sm:px-5">
+                          {slotBookings.length === 0 ? (
+                            <p className="text-[13px] text-muted">Nessuna prenotazione.</p>
+                          ) : (
+                            <div className="space-y-2.5">
+                              {slotBookings.map((b) => {
+                                const u = userById.get(b.userId);
+                                if (!u) return null;
+                                return (
+                                  <div
+                                    key={b.id}
+                                    className="flex flex-col gap-1.5 border-b border-border pb-2.5 last:border-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
+                                  >
+                                    <span className="text-[13.5px] text-ink">
+                                      {u.firstName} {u.lastName}
+                                    </span>
+                                    <AttendanceToggle bookingId={b.id} status={b.status} />
+                                  </div>
+                                );
+                              })}
                             </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                    <div className="flex justify-end border-t border-border pt-3">
-                      <CancelSlotButton slotId={s.id} />
-                    </div>
-                  </div>
-                </details>
-              );
-            })}
+                          )}
+                          <div className="border-t border-border pt-3">
+                            <SessionActions
+                              slotId={s.id}
+                              startsAt={s.startsAt}
+                              endsAt={s.endsAt}
+                              capacity={s.capacity}
+                              notes={s.notes}
+                              cancelWindowHours={s.cancelWindowHours}
+                            />
+                          </div>
+                        </div>
+                      </details>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

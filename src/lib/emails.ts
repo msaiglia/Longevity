@@ -105,6 +105,28 @@ export async function sendWaitlistPromotionEmail(
   });
 }
 
+export async function sendSlotUpdatedEmail(
+  to: string,
+  firstName: string,
+  oldLabel: string,
+  newLabel: string,
+) {
+  return resend.emails.send({
+    from: EMAIL_FROM,
+    to,
+    subject: "Una tua sessione è stata modificata",
+    html: shell(
+      `Sessione modificata`,
+      `Ciao ${firstName}, lo staff ha modificato l'orario di una sessione a cui eri iscritto/a.<br/><br/>
+      Prima: <strong>${oldLabel}</strong><br/>
+      Ora: <strong>${newLabel}</strong><br/><br/>
+      La tua prenotazione resta confermata per il nuovo orario.`,
+      "Le mie prenotazioni",
+      `${getAppUrl()}/le-mie-prenotazioni`,
+    ),
+  });
+}
+
 export async function sendReminderEmail(to: string, firstName: string, dateLabel: string) {
   return resend.emails.send({
     from: EMAIL_FROM,

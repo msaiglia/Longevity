@@ -7,7 +7,7 @@ import { eq, and } from "drizzle-orm";
 import { requireAdmin } from "@/lib/guards";
 import { createSlotSchema } from "@/lib/validation";
 import { formatDateTimeLabel } from "@/lib/utils";
-import { sendCancellationEmail } from "@/lib/emails";
+import { sendCancellationEmail, sendSlotUpdatedEmail } from "@/lib/emails";
 
 export type SlotFormState = { ok: boolean; error?: string; created?: number };
 
@@ -116,6 +116,74 @@ export async function createSlotAction(
   revalidatePath("/admin/slot");
   revalidatePath("/prenota");
   return { ok: true, created: dates.length };
+}
+
+export async function updateSlotAction(
+  slotId: string,
+  _prev: SlotFormState,
+  formData: FormData,
+): Promise<SlotFormState> {
+  await requireAdmin();
+
+  const [slot] = await db.select().from(slots).where(eq(slots.id, slotId)).limit(1);
+  if (!slot) return { ok: false, error: "Sessione non trovata." };
+
+  const parsed = createSlotSchema.safeParse({
+    date: formData.get("date"),
+    startTime: formData.get("startTime"),
+    endTime: formData.get("endTime"),
+    capacity: formData.get("capacity"),
+    notes: formData.get("notes") || undefined,
+    cancelWindowHours: formData.get("cancelWindowHours") || 2,
+  });
+
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dati non validi." };
+  }
+  if (!parsed.data.date) {
+    return { ok: false, error: "Seleziona una data." };
+  }
+
+  const { date, startTime, endTime, capacity, notes, cancelWindowHours } = parsed.data;
+  const newStartsAt = new Date(`${date}T${startTime}:00`);
+  const newEndsAt = new Date(`${date}T${endTime}:00`);
+
+  const activeBookings = await db
+    .select()
+    .from(bookings)
+    .innerJoin(users, eq(bookings.userId, users.id))
+    .where(
+      and(eq(bookings.slotId, slotId), eq(bookings.status, "confirmed"), eq(users.role, "athlete")),
+    );
+
+  if (capacity < activeBookings.length) {
+    return {
+      ok: false,
+      error: `Non puoi impostare una capienza inferiore alle ${activeBookings.length} prenotazioni già confermate.`,
+    };
+  }
+
+  const timeChanged =
+    newStartsAt.getTime() !== slot.startsAt.getTime() || newEndsAt.getTime() !== slot.endsAt.getTime();
+  const oldLabel = formatDateTimeLabel(slot.startsAt, slot.endsAt);
+  const newLabel = formatDateTimeLabel(newStartsAt, newEndsAt);
+
+  await db
+    .update(slots)
+    .set({ startsAt: newStartsAt, endsAt: newEndsAt, capacity, notes, cancelWindowHours })
+    .where(eq(slots.id, slotId));
+
+  if (timeChanged) {
+    for (const row of activeBookings) {
+      await sendSlotUpdatedEmail(row.users.email, row.users.firstName, oldLabel, newLabel).catch(
+        () => null,
+      );
+    }
+  }
+
+  revalidatePath("/admin/slot");
+  revalidatePath("/prenota");
+  return { ok: true };
 }
 
 export async function cancelSlotAction(slotId: string) {
